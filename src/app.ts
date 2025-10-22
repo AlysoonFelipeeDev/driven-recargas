@@ -1,6 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
 import { query } from "./config/db";
+import phonesRouter from "./routers/phones-router";
+import { errorHandler } from "./middlewares/error-handler";
 
 dotenv.config();
 const app = express();
@@ -20,5 +22,9 @@ app.get("/health/db", async (_req, res, next) => {
         next(err);
     }
 });
+
+app.use("/phones", phonesRouter);
+
+app.use(errorHandler);
 
 export default app;
