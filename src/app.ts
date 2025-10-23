@@ -4,6 +4,7 @@ import { query } from "./config/db";
 import phonesRouter from "./routers/phones-router";
 import { errorHandler } from "./middlewares/error-handler";
 import rechargesRouter from "./routers/recharges-router";
+import summaryRouter from "./routers/summary-router";
 
 dotenv.config();
 const app = express();
@@ -25,7 +26,8 @@ app.get("/health/db", async (_req, res, next) => {
 });
 
 app.use("/phones", phonesRouter);
-app.use("/recharges", rechargesRouter)
+app.use("/recharges", rechargesRouter);
+app.use("/summary", summaryRouter)
 
 app.use(errorHandler);
 
