@@ -5,13 +5,18 @@ dotenv.config();
 
 export const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
-    ssl: undefined
-});
+    ssl:
+        process.env.DATABASE_URL?.includes("render.com") ||
+        process.env.DATABASE_URL?.includes("?ssl=true")
+        ? { rejectUnauthorized: false }
+        : undefined,
+    });
 
-export async function query<T extends QueryResultRow = any>(
+    export async function query<T extends QueryResultRow = any>(
     text: string,
     params?: any[]
-    ) { 
+    ) {
     return pool.query<T>(text, params);
-    }
+}
+
 
